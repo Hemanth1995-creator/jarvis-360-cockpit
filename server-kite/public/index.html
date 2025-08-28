@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jarvis 360 Copilot — Cinematic</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Jarvis 360 Copilot</span>
+      </div>
+      <div class="controls">
+        <select id="langSelect" title="Language">
+          <option value="en-IN">English (India)</option>
+          <option value="hi-IN">हिन्दी (Hindi)</option>
+          <option value="ta-IN">தமிழ் (Tamil)</option>
+          <option value="te-IN">తెలుగు (Telugu)</option>
+        </select>
+        <button id="btnManual" class="pill">Manual</button>
+        <button id="btnAuto" class="pill pill-primary">Auto-Pilot</button>
+        <button id="qaMarket" class="qbtn">Market</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: Sector chips -->
+      <aside class="panel sidebar">
+        <h3>Commander</h3>
+        <div class="sector">
+          <h4>Sector Access</h4>
+          <div class="chiprow" id="sectorChips">
+            <button class="sector-btn" data-sym="INFY">
+              INFY <span>Infosys</span>
+            </button>
+            <button class="sector-btn" data-sym="TCS">
+              TCS <span>Tata Consultancy</span>
+            </button>
+            <button class="sector-btn" data-sym="HDFC">
+              HDFC <span>Banking</span>
+            </button>
+            <button class="sector-btn" data-sym="RELI">
+              RELI <span>Reliance</span>
+            </button>
+            <button class="sector-btn" data-sym="SBIN">
+              SBIN <span>State Bank</span>
+            </button>
+            <button class="sector-btn" data-sym="ITC">
+              ITC <span>FMCG</span>
+            </button>
+          </div>
+        </div>
+        <div class="active-sym">
+          Active: <strong id="activeSymbol">—</strong>
+        </div>
+      </aside>
+
+      <!-- CENTER: Reactor/Chart -->
+      <section class="radar-card">
+        <div class="radar-wrap">
+          <canvas
+            id="radar"
+            aria-label="Cinematic reactor/price chart"
+          ></canvas>
+        </div>
+        <div class="hud">
+          <div>ASR: <span id="asrState">idle</span></div>
+          <div>TTS: <span id="ttsState">idle</span></div>
+          <div>Mode: <span id="modeState">manual</span></div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Actions + Tabbed panel -->
+      <aside class="panel rightpanel">
+        <h3>Quick Actions</h3>
+        <div class="quick-grid">
+          <button id="qaOpen" class="qbtn">Open Chart</button>
+          <button id="qaShuffle" class="qbtn">Shuffle</button>
+          <button id="qaGlow" class="qbtn">Toggle Glow</button>
+          <button id="qaTrend" class="qbtn">Chart Trend</button>
+          <button id="qaProfit" class="qbtn">Profit Chance</button>
+          <button id="qaHelp" class="qbtn">Help</button>
+          <button id="qaClear" class="qbtn warn">Clear Log</button>
+          <button id="qaSpeak" class="qbtn">Speak</button>
+          <button id="qaStop" class="qbtn">Stop</button>
+        </div>
+
+        <div class="tabs">
+          <button id="tabLog" class="tab-btn active">Audit Log</button>
+          <button id="tabPf" class="tab-btn">Portfolio</button>
+        </div>
+
+        <!-- AUDIT LOG VIEW -->
+        <section id="logView">
+          <h3>Audit Log</h3>
+          <div id="log"></div>
+          <div class="manual-box">
+            <input
+              id="manualText"
+              placeholder="Type transcript (e.g., open chart, trade infy) and press Enter"
+            />
+            <button id="manualSend" class="ghost">Send</button>
+          </div>
+        </section>
+
+        <!-- PORTFOLIO VIEW -->
+        <section id="pfView" hidden>
+          <h3>Portfolio (Paper)</h3>
+          <div class="tradebar">
+            <input
+              id="symInput"
+              value=""
+              placeholder="Symbol (e.g., INFY)"
+              aria-label="Symbol"
+            />
+            <input
+              id="qtyInput"
+              type="number"
+              min="1"
+              value="1"
+              aria-label="Quantity"
+            />
+            <button id="btnLive" class="tiny">Live Status</button>
+            <button id="btnBuy" class="tiny buy">Paper Buy</button>
+            <button id="btnSell" class="tiny sell">Paper Sell</button>
+          </div>
+
+          <div class="table-wrap">
+            <table class="pf">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Qty</th>
+                  <th>Avg</th>
+                  <th>Price</th>
+                  <th>P&L %</th>
+                </tr>
+              </thead>
+              <tbody id="pfBody">
+                <!-- rows injected -->
+              </tbody>
+            </table>
+          </div>
+          <div class="pf-actions">
+            <button id="btnClearPf" class="warn">Clear Portfolio</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="foot">
+      <span
+        >Shortcuts: Ctrl+M Speak • Ctrl+. Stop • Ctrl+/ Help • Ctrl+L Auto</span
+      >
+      <span id="uptime">0s</span>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
